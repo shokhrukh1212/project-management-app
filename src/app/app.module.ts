@@ -7,15 +7,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { DropdownDirective } from './shared/directives/dropdown.directive';
+import { RouterModule } from "@angular/router";
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
   declarations: [AppComponent, DropdownDirective],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

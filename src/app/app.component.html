@@ -1,12 +1,9 @@
-<!-- <app-welcome-header
+<app-welcome-header
   (loginEmitter)="loginClicked($event)"
   (signUpEmitter)="signUpClicked($event)"
 ></app-welcome-header>
 <app-welcome-main *ngIf="isWelcomeMain"></app-welcome-main>
-<app-registration
-  [isSigned]="isSigned"
-  [isLogged]="isLogged"
-></app-registration>
-<app-footer></app-footer> -->
-<app-boards></app-boards>
+<app-registration [isSigned]="false" [isLogged]="false"></app-registration>
 <app-footer></app-footer>
+<!-- <app-routes></app-routes>
+<app-footer></app-footer> -->
