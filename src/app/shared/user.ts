@@ -9,3 +9,8 @@ export interface signedUser {
   name: string;
   login: string;
 }
+
+export interface loginUser {
+  login: string;
+  password: string;
+}
