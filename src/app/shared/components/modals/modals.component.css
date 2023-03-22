@@ -6,8 +6,8 @@
 
   /* z-index must be higher than .custom-modal-background */
   z-index: 1000;
-  width: 400px;
-  height: 400px;
+  /* width: 500px;
+  height: 400px; */
 }
 
 .custom-modal-body {
