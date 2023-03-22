@@ -1,0 +1,16 @@
+{
+  "people": [
+    {
+      "id": 1,
+      "name": "Don Bradman"
+    },
+    {
+      "id": 2,
+      "name": "Sachin Tendulkar"
+    },
+    {
+      "id": 3,
+      "name": "Shokhrukh"
+    }
+  ]
+}

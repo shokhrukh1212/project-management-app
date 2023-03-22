@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Ubuntu:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+.parent {
+  min-height: calc(100vh - 236px);
+}
+.row {
+  background: url("https://media.istockphoto.com/id/1377265408/photo/relaxing-outdoors-vacation-landscape-concept-abstract-blurred-sunlight-beach-colorful-blurred.jpg?b=1&s=170667a&w=0&k=20&c=m8MBlZMvS7LuSSJxRPdhj8dCqNBn5KjM9UUSTs1iloE=");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+.row h1 {
+  font-weight: bold;
+  font-family: "Lobster", cursive;
+}
+.board {
+  background: url("https://static.vecteezy.com/system/resources/previews/007/188/453/original/abstract-blur-background-with-pastel-color-free-vector.jpg");
+  max-height: 100px;
+  border-radius: 15px;
+}
+.board:hover {
+  cursor: pointer;
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhuZJg_uQGFfQSztlo-DpbO_ybPnYjd9a8gw&usqp=CAU");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #f0ead6;
+  transition: all 0.8s ease-in;
+}
+.board i {
+  font-size: 2.5em;
+  border-left: 5px solid #6e7f80;
+  padding: 10px;
+  padding-left: 15px;
+}
