@@ -12,10 +12,11 @@ import { WelcomeMainComponent } from './components/welcome-page/welcome-main/wel
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/registration/login/login.component';
 import { SignUpComponent } from './components/registration/sign-up/sign-up.component';
-import { RoutesComponent } from './components/routes/routes.component';
-import { MainRouteComponent } from './components/routes/main-route/main-route.component';
-import { BoardRouteComponent } from './components/routes/board-route/board-route.component';
-import { RoutesHeaderComponent } from './components/routes/routes-header/routes-header.component';
+import { MainRouteComponent } from './components/boards/main-route/main-route.component';
+import { BoardRouteComponent } from './components/boards/board-route/board-route.component';
+import { RoutesHeaderComponent } from './components/boards/routes-header/routes-header.component';
+import { BoardsComponent } from './components/boards/boards.component';
+import { BoardsHeaderComponent } from './components/boards/boards-header/boards-header.component';
 
 import { ModalsModule } from './components/modals/modals.module';
 
@@ -29,10 +30,11 @@ const COMPONENTS = [
   RegistrationComponent,
   LoginComponent,
   SignUpComponent,
-  RoutesComponent,
   MainRouteComponent,
   BoardRouteComponent,
   RoutesHeaderComponent,
+  BoardsComponent,
+  BoardsHeaderComponent,
 ];
 
 @NgModule({

@@ -21,27 +21,27 @@
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <h3>Sign up</h3>
 
-        <label for="username">Username</label>
+        <label for="name">Name</label>
         <input
           type="text"
-          placeholder="Username"
-          id="username"
-          name="username"
-          formControlName="firstName"
+          placeholder="Name"
+          id="name"
+          name="name"
+          formControlName="name"
           [ngClass]="{
             'border border-danger':
-              submitted && registerForm.controls.firstName.errors
+              submitted && registerForm.controls.name.errors
           }"
           [ngClass]="{
-            'border border-success': registerForm.controls.firstName.valid
+            'border border-success': registerForm.controls.name.valid
           }"
-          [(ngModel)]="signupObj.userName"
+          [(ngModel)]="signupObj.name"
         />
         <div
-          *ngIf="submitted && registerForm.controls.firstName.errors"
+          *ngIf="submitted && registerForm.controls.name.errors"
           class="text-danger"
         >
-          min 5 characters, including letters and numbers
+          min 5 characters
         </div>
 
         <label for="email">Login</label>
@@ -90,7 +90,7 @@
           must be at least 8 characters
         </div>
 
-        <button (click)="onSignUp()" routerLink="/sign-up">Sign up</button>
+        <button routerLink="/sign-up">Sign up</button>
         <p>
           Already have an account:
           <a href="#"><i>Login</i></a>

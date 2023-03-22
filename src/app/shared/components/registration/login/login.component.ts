@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { login, signUp } from 'src/app/shared/registration';
+import { loginUser } from 'src/app/shared/user';
+import { RegisterService } from 'src/app/shared/services/register.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,33 +10,52 @@ import { login, signUp } from 'src/app/shared/registration';
 })
 export class LoginComponent implements OnInit {
   @Input() isLogged: boolean = false;
-  @Input('signUpUsers') signUpUsers: signUp[] = [];
+  registerForm!: FormGroup;
+  submitted: boolean = false;
 
-  loginObj: login = {
-    userName: '',
+  loginObj: loginUser = {
+    login: '',
     password: '',
   };
 
-  constructor() {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private registerService: RegisterService
+  ) {}
 
   ngOnInit(): void {
-    const localData = localStorage.getItem('signUpUsers');
-    if (localData !== null) {
-      this.signUpUsers = JSON.parse(localData);
-    }
+    this.registerForm = this.formBuilder.group({
+      login: ['', [Validators.required, Validators.minLength(5)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
   }
 
-  onLogin() {
-    const isUserExist = this.signUpUsers.find(
-      (user) =>
-        user.userName === this.loginObj.userName &&
-        user.password === this.loginObj.password
+  // getting login and password info
+  get login() {
+    return this.registerForm.get('login');
+  }
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  onSubmit() {
+    // this.registerService.AddCors(options => { options.AddPolicy("AnyOrigin", builder => { builder .AllowAnyOrigin() .AllowAnyMethod() .AllowAnyHeader() .AllowCredentials(); }); });
+
+    this.registerService.signIn(this.registerForm.value).subscribe(
+      (data: { token: string }) => {
+        console.log(data.token);
+      },
+      (error) => {
+        console.log(error);
+      }
     );
 
-    if (isUserExist !== undefined) {
-      alert('User logged successfully');
-    } else {
-      alert('Wrong credentials...');
+    this.submitted = true;
+
+    if (this.registerForm.invalid) {
+      return;
     }
+
+    this.registerForm.reset();
   }
 }
