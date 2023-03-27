@@ -7,7 +7,7 @@ import { BoardRequest, BoardResponse } from '../models/boards.model';
   providedIn: 'root',
 })
 export class BoardsService {
-  baseURL: string = 'http://localhost:3000/';
+  baseURL: string = 'https://khon-project-management.onrender.com';
   constructor(private http: HttpClient) {}
 
   public getAllBoards(): Observable<BoardResponse[]> {

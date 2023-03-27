@@ -8,7 +8,7 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class RegisterService {
-  baseURL: string = 'http://localhost:3000/';
+  baseURL: string = 'https://khon-project-management.onrender.com';
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<signedUser[]> {
