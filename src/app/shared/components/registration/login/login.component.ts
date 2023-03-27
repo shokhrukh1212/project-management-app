@@ -3,6 +3,10 @@ import { loginUser } from 'src/app/shared/user';
 import { RegisterService } from 'src/app/shared/services/register.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { finalize } from 'rxjs';
+import { Router } from '@angular/router';
+import { HeaderSwitcherService } from 'src/app/shared/services/header-switcher.service';
+import { ModalService } from '../../../services/modal.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,16 +16,17 @@ export class LoginComponent implements OnInit {
   @Input() isLogged: boolean = false;
   registerForm!: FormGroup;
   submitted: boolean = false;
-
-  loginObj: loginUser = {
-    login: '',
-    password: '',
-  };
+  loginButton!: HTMLElement;
 
   constructor(
     private formBuilder: FormBuilder,
-    private registerService: RegisterService
-  ) {}
+    private registerService: RegisterService,
+    private router: Router,
+    private headerService: HeaderSwitcherService,
+    private modalService: ModalService
+  ) {
+    this.loginButton = document.getElementById('loginButton') as HTMLElement;
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -30,32 +35,35 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // getting login and password info
-  get login() {
-    return this.registerForm.get('login');
-  }
-  get password() {
-    return this.registerForm.get('password');
-  }
-
   onSubmit() {
-    // this.registerService.AddCors(options => { options.AddPolicy("AnyOrigin", builder => { builder .AllowAnyOrigin() .AllowAnyMethod() .AllowAnyHeader() .AllowCredentials(); }); });
+    this.registerService
+      .signIn(this.registerForm.value)
+      .pipe(
+        finalize(() => {
+          this.loginButton.innerText = 'Loading...';
+        })
+      )
+      .subscribe({
+        next: (result) => {
+          const { token, userId } = result;
+          localStorage.setItem('token: ', token);
+          localStorage.setItem('id: ', userId);
+          console.log(result);
+          this.router.navigate(['/boards']);
+          this.headerService.switchHeaderToBoard();
+        },
+        error: (error) => {
+          this.modalService.open('login-modal');
+        },
+      });
+  }
 
-    this.registerService.signIn(this.registerForm.value).subscribe(
-      (data: { token: string }) => {
-        console.log(data.token);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  onSignup() {
+    this.router.navigateByUrl('auth/signup');
+  }
 
-    this.submitted = true;
-
-    if (this.registerForm.invalid) {
-      return;
-    }
-
-    this.registerForm.reset();
+  closeModal(id: string) {
+    this.modalService.close(id);
+    this.modalService.remove(id);
   }
 }

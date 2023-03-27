@@ -20,8 +20,6 @@ form {
 form * {
   font-family: "Poppins", sans-serif;
   letter-spacing: 0.5px;
-  outline: none;
-  border: none;
 }
 form h3 {
   font-size: 32px;
@@ -67,4 +65,8 @@ button {
 p {
   padding-top: 10px;
   color: #fff;
+}
+span {
+  cursor: pointer;
+  color: blue;
 }

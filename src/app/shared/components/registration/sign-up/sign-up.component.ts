@@ -2,6 +2,7 @@ import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from 'src/app/shared/services/register.service';
 import { signedUser, signUpUser } from 'src/app/shared/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +12,8 @@ import { signedUser, signUpUser } from 'src/app/shared/user';
 export class SignUpComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private router: Router
   ) {}
 
   @Input() isSigned: boolean = false;
@@ -28,24 +30,21 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  signUpUsers: signUpUser[] = [];
-  signupObj: signUpUser = {
-    name: '',
-    login: '',
-    password: '',
-  };
-
   onSubmit(): void {
     this.registerService.addUser(this.registerForm.value).subscribe((data) => {
       console.log('data => ', data);
     });
-
     this.submitted = true;
-
     if (this.registerForm.invalid) {
       return;
+    } else {
+      this.router.navigate(['/auth/signin']);
     }
 
     this.registerForm.reset();
+  }
+
+  onLogin() {
+    this.router.navigateByUrl('auth/signin');
   }
 }

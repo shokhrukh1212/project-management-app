@@ -19,9 +19,9 @@
       "
     >
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <h3>Sign up</h3>
+        <h3>{{ "REGISTER.SIGNUP.MESSAGE" | translate }}</h3>
 
-        <label for="name">Name</label>
+        <label for="name">{{ "REGISTER.SIGNUP.NAME" | translate }}</label>
         <input
           type="text"
           placeholder="Name"
@@ -35,7 +35,6 @@
           [ngClass]="{
             'border border-success': registerForm.controls.name.valid
           }"
-          [(ngModel)]="signupObj.name"
         />
         <div
           *ngIf="submitted && registerForm.controls.name.errors"
@@ -44,7 +43,7 @@
           min 5 characters
         </div>
 
-        <label for="email">Login</label>
+        <label for="email">{{ "REGISTER.SIGNUP.LOGIN" | translate }}</label>
         <input
           type="text"
           placeholder="login"
@@ -58,7 +57,6 @@
           [ngClass]="{
             'border border-success': registerForm.controls.login.valid
           }"
-          [(ngModel)]="signupObj.login"
         />
         <div
           *ngIf="submitted && registerForm.controls.login.errors"
@@ -67,7 +65,9 @@
           min 5 characters, including letters and numbers
         </div>
 
-        <label for="password">Password</label>
+        <label for="password">{{
+          "REGISTER.SIGNUP.PASSWORD" | translate
+        }}</label>
         <input
           type="password"
           placeholder="Password"
@@ -81,7 +81,6 @@
           [ngClass]="{
             'border border-success': registerForm.controls.password.valid
           }"
-          [(ngModel)]="signupObj.password"
         />
         <div
           *ngIf="submitted && registerForm.controls.password.errors"
@@ -90,10 +89,14 @@
           must be at least 8 characters
         </div>
 
-        <button routerLink="/sign-up">Sign up</button>
+        <button routerLink="/auth/sign-up">
+          {{ "REGISTER.SIGNUP.BUTTON" | translate }}
+        </button>
         <p>
-          Already have an account:
-          <a href="#"><i>Login</i></a>
+          {{ "REGISTER.SIGNUP.ACCOUNT" | translate }}:
+          <span (click)="onLogin()"
+            ><i>{{ "REGISTER.SIGNUP.CREATE" | translate }}</i></span
+          >
         </p>
       </form>
     </div>

@@ -1,0 +1,48 @@
+{
+  "HOME": {
+    "TITLE": "Project Management",
+    "WELCOME1": "Welcome to",
+    "WELCOME2": "Project Management Application"
+  },
+  "BUTTON": {
+    "LAN": {
+      "RU": "Russian",
+      "EN": "English"
+    },
+    "REGISTER": {
+      "LOGIN": "Login",
+      "SIGNUP": "Sign up"
+    }
+  },
+  "REGISTER": {
+    "LOGIN": {
+      "MESSAGE": "Login Here",
+      "TITLE": "Login",
+      "PASSWORD": "Password",
+      "BUTTON": "Login",
+      "ACCOUNT": "No account yet",
+      "CREATE": "Create new account",
+      "ERROR": "Error: Login or password is incorrect"
+    },
+    "SIGNUP": {
+      "MESSAGE": "Sign up",
+      "NAME": "Name",
+      "LOGIN": "Login",
+      "PASSWORD": "Password",
+      "BUTTON": "Sign up",
+      "ACCOUNT": "Already have an account",
+      "CREATE": "Login"
+    }
+  },
+  "BOARDHEADER": {
+    "SEARCH": "Search",
+    "LANGUAGE": "language",
+    "ADD": "add a new board",
+    "USERNAME": "username",
+    "EDIT": "edit profile",
+    "LOGOUT": "logout"
+  },
+  "BOARDS": {
+    "TITLE": "Boards"
+  }
+}

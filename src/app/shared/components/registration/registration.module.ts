@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { LoginComponent } from './login/login.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot([
-      { path: 'sign-up', component: SignUpComponent },
-      { path: 'login', component: LoginComponent },
-    ]),
-  ],
+  imports: [CommonModule],
 })
-export class RegistrationModule {}
+export class RegistrationModule {
+  constructor(public translate: TranslateService) {}
+}

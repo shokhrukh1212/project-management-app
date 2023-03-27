@@ -8,20 +8,32 @@
   <div class="container">
     <div class="row m-auto mt-2">
       <!-- Each column -->
-      <div class="col board me-2 p-4 w-25">
+      <div *ngFor="let element of boards" class="board ms-2">
+        <!-- <div> -->
         <div class="col-header">
-          <h2>column name</h2>
+          <h2>{{ element.title }}</h2>
           <i class="bi bi-trash3"></i>
         </div>
-        <p>some description</p>
+        <p>{{ element.description }}</p>
         <!-- Each task -->
-        <div class="board-task-content">
-          <div class="board-task-info">
-            <h3>Task name</h3>
-            <p>Task description</p>
-          </div>
-          <div class="board-task-delete">
-            <i class="bi bi-trash3"></i>
+        <div
+          cdkDropList
+          id="{{ element.id }}"
+          class="item-list"
+          [cdkDropListData]="element.boardInfo"
+          [cdkDropListConnectedTo]="connectedTo"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div class="item-box" *ngFor="let board of element.boardInfo" cdkDrag>
+            <div class="board-task-content">
+              <div class="board-task-info">
+                <h3>{{ board.name }}</h3>
+                <p>{{ board.description }}</p>
+              </div>
+              <div class="board-task-delete">
+                <i class="bi bi-trash3"></i>
+              </div>
+            </div>
           </div>
         </div>
         <div class="board-add">
@@ -29,27 +41,6 @@
         </div>
       </div>
 
-      <!-- Each column -->
-      <div class="col board me-2 p-4 w-25">
-        <div class="col-header">
-          <h2>column name</h2>
-          <i class="bi bi-trash3"></i>
-        </div>
-        <p>some description</p>
-        <!-- Each task -->
-        <div class="board-task-content">
-          <div class="board-task-info">
-            <h3>Task name</h3>
-            <p>Task description</p>
-          </div>
-          <div class="board-task-delete">
-            <i class="bi bi-trash3"></i>
-          </div>
-        </div>
-        <div class="board-add">
-          <i class="bi bi-plus-circle"></i>
-        </div>
-      </div>
       <div class="col">
         <i class="bi bi-plus-square-dotted" title="add a new column"></i>
       </div>
