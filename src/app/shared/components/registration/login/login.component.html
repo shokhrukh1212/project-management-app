@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Design by foolishdeveloper.com -->
-    <title>Glassmorphism login Form Tutorial in html css</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
       rel="stylesheet"
@@ -19,33 +17,46 @@
         height: 100vh;
       "
     >
-      <form>
-        <h3>Login Here</h3>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <h3>{{ "REGISTER.LOGIN.MESSAGE" | translate }}</h3>
 
-        <label for="username">Username</label>
+        <label for="login">{{ "REGISTER.LOGIN.TITLE" | translate }}</label>
         <input
           type="text"
-          placeholder="User Name"
-          id="username"
-          name="username"
-          [(ngModel)]="loginObj.userName"
+          placeholder="Login"
+          id="login"
+          name="login"
+          formControlName="login"
+          required
         />
 
-        <label for="password">Password</label>
+        <label for="password">{{
+          "REGISTER.LOGIN.PASSWORD" | translate
+        }}</label>
         <input
           type="password"
           placeholder="Password"
           id="password"
           name="password"
-          [(ngModel)]="loginObj.password"
+          formControlName="password"
+          required
         />
 
-        <button (click)="onLogin()" routerLink="/login">Log In</button>
+        <button routerLink="/auth/login" id="loginButton">
+          {{ "REGISTER.LOGIN.BUTTON" | translate }}
+        </button>
         <p>
-          No account yet:
-          <a href="#"><i>Create new account</i></a>
+          {{ "REGISTER.LOGIN.ACCOUNT" | translate }}:
+          <span (click)="onSignup()"
+            ><i>{{ "REGISTER.LOGIN.CREATE" | translate }}</i></span
+          >
         </p>
       </form>
     </div>
+
+    <app-modals id="login-modal">
+      <p>{{ "REGISTER.LOGIN.ERROR" | translate }}</p>
+      <button (click)="closeModal('login-modal')">Ok</button>
+    </app-modals>
   </body>
 </html>

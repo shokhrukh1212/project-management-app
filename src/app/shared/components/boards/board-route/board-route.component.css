@@ -28,8 +28,28 @@ p {
 
 /*------------------------------*/
 
+.container .row {
+  display: flex;
+  flex-wrap: no-wrap;
+  overflow: auto;
+  white-space: nowrap;
+  margin: 20px;
+  max-height: 400px;
+}
+
 .row .board {
   background-color: #fff;
+  max-height: 360px;
+  width: 300px;
+  overflow-x: auto;
+  display: inline-block;
+  padding: 10px;
+}
+.row .board:hover {
+  cursor: move;
+}
+.row .board i.bi-trash3:hover {
+  cursor: pointer;
 }
 .row .board .col-header {
   display: flex;
@@ -43,12 +63,16 @@ p {
   cursor: pointer;
 }
 .row .board .board-task-content {
+  width: 100%;
+  height: 80px;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
+  background-color: darkgray;
+  margin-bottom: 5px;
 }
 .board-add {
   display: flex;

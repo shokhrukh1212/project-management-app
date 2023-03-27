@@ -21,7 +21,6 @@ form * {
   font-family: "Poppins", sans-serif;
   letter-spacing: 0.5px;
   outline: none;
-  border: none;
 }
 form h3 {
   font-size: 32px;
@@ -67,4 +66,15 @@ button {
 p {
   color: #fff;
   padding-top: 20px;
+}
+span {
+  cursor: pointer;
+  color: blue;
+}
+#login-modal p {
+  color: #000;
+  font-size: 1.2em;
+}
+#login-modal button {
+  background-color: red;
 }
