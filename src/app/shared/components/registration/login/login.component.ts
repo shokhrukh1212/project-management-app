@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { loginUser } from 'src/app/shared/user';
+import { loginUser } from 'src/app/shared/models/user.model';
 import { RegisterService } from 'src/app/shared/services/register.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -45,6 +45,8 @@ export class LoginComponent implements OnInit {
       )
       .subscribe({
         next: (result) => {
+          console.log(result);
+
           const { token, userId } = result;
           localStorage.setItem('token: ', token);
           localStorage.setItem('id: ', userId);

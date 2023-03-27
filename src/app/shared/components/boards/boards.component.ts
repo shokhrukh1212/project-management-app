@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Board } from './boards';
+import { Board } from '../../models/board.model';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { BoardsService } from '../../services/boards.service';
+import { BoardResponse } from '../../models/boards.model';
 
 @Component({
   selector: 'app-boards',
@@ -12,11 +14,14 @@ import { Location } from '@angular/common';
 export class BoardsComponent implements OnInit, OnDestroy {
   boardSwitcher: boolean = true;
   boards: Board[] = [
-    { id: 0, name: 'board name 1', description: 'board 1 description' },
-    { id: 1, name: 'board name 2', description: 'board 2 description' },
+    { _id: 0, title: 'board title 1' },
+    { _id: 1, title: 'board title 2' },
   ];
 
-  constructor(private location: Location) {}
+  constructor(
+    private location: Location,
+    private boardService: BoardsService
+  ) {}
 
   private unsubscriber: Subject<void> = new Subject<void>();
 
@@ -32,5 +37,12 @@ export class BoardsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscriber.next();
     this.unsubscriber.complete();
+  }
+
+  // Getting all boards info
+  getBoards() {
+    this.boardService.getAllBoards().subscribe((result: BoardResponse[]) => {
+      console.log(result);
+    });
   }
 }

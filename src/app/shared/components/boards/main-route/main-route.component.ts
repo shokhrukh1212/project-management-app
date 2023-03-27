@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Board } from '../boards';
+import { Board } from 'src/app/shared/models/board.model';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../services/modal.service';
+import { BoardsService } from 'src/app/shared/services/boards.service';
 
 @Component({
   selector: 'app-main-route',
@@ -12,7 +13,11 @@ export class MainRouteComponent {
   @Input('boards') boards: Board[] = [];
   @Input('boardSwitcher') boardSwitcher: boolean = true;
 
-  constructor(private router: Router, private modalService: ModalService) {}
+  constructor(
+    private router: Router,
+    private modalService: ModalService,
+    private boardService: BoardsService
+  ) {}
 
   onBoard(id: number) {
     this.router.navigate(['/board'], { queryParams: { id: id } });
@@ -25,5 +30,8 @@ export class MainRouteComponent {
 
   closeModal(id: string) {
     this.modalService.close(id);
+    this.modalService.remove(id);
   }
+
+  // Creating a new board
 }

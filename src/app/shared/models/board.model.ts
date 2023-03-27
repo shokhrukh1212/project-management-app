@@ -1,5 +1,9 @@
 export interface Board {
-  id?: number;
+  _id: number;
+  title: string;
+}
+
+export interface BoardColumn {
   name: string;
   description: string;
 }

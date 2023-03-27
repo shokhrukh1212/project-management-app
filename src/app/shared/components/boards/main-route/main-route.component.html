@@ -15,15 +15,14 @@
       *ngFor="let board of boards"
       class="board w-75 m-auto mb-2 p-3 d-flex justify-content-space-between align-items-center"
     >
-      <div class="w-100 board-clickable" (click)="onBoard(board.id!)">
-        <h1>{{ board.name }}</h1>
-        <span>{{ board.description }}</span>
+      <div class="w-100 board-clickable" (click)="onBoard(board._id!)">
+        <h1>{{ board.title }}</h1>
       </div>
 
       <div>
         <i
           class="bi bi-trash-fill"
-          (click)="openModal('main-route', board.id!)"
+          (click)="openModal('main-route', board._id!)"
         ></i>
       </div>
     </div>

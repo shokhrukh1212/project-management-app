@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Board } from '../boards';
+import { Board, BoardColumn } from 'src/app/shared/models/board.model';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -17,7 +17,7 @@ export class BoardRouteComponent {
     id: string;
     title: string;
     description: string;
-    boardInfo: Board[];
+    boardInfo: BoardColumn[];
   }[] = [];
 
   constructor() {
@@ -65,7 +65,7 @@ export class BoardRouteComponent {
     }
   }
 
-  drop(event: CdkDragDrop<Board[]>) {
+  drop(event: CdkDragDrop<BoardColumn[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

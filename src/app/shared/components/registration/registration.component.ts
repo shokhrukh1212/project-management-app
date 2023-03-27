@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { signUp } from 'src/app/shared/registration';
+import { signUp } from 'src/app/shared/models/registration.model';
 
 @Component({
   selector: 'app-registration',
