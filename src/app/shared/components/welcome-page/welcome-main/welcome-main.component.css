@@ -12,3 +12,17 @@
   font-size: 1.3em;
   text-align: center;
 }
+
+.row .developerInfo {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.3em;
+}
+.row .developerInfo a {
+  text-decoration: none;
+  color: blue;
+  font-size: 1.4em;
+}
+.row pre {
+  margin-bottom: 20px;
+}

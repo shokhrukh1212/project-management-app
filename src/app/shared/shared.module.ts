@@ -15,7 +15,9 @@ import { SignUpComponent } from './components/registration/sign-up/sign-up.compo
 import { MainRouteComponent } from './components/boards/main-route/main-route.component';
 import { BoardRouteComponent } from './components/boards/board-route/board-route.component';
 import { BoardsComponent } from './components/boards/boards.component';
-import { HeaderComponent } from './components/header/header.component';
+import { WelcomeHeaderComponent } from './components/welcome-page/welcome-header/welcome-header.component';
+import { BoardsHeaderComponent } from './components/boards/boards-header/boards-header.component';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,7 +35,8 @@ const COMPONENTS = [
   MainRouteComponent,
   BoardRouteComponent,
   BoardsComponent,
-  HeaderComponent,
+  WelcomeHeaderComponent,
+  BoardsHeaderComponent,
 ];
 
 @NgModule({
