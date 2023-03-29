@@ -22,11 +22,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
     private router: Router,
-    private headerService: HeaderSwitcherService,
     private modalService: ModalService
-  ) {
-    this.loginButton = document.getElementById('loginButton') as HTMLElement;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -40,7 +37,7 @@ export class LoginComponent implements OnInit {
       .signIn(this.registerForm.value)
       .pipe(
         finalize(() => {
-          this.loginButton.innerText = 'Loading...';
+          console.log('loading...');
         })
       )
       .subscribe({
@@ -52,7 +49,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('id: ', userId);
           console.log(result);
           this.router.navigate(['/boards']);
-          this.headerService.switchHeaderToBoard();
         },
         error: (error) => {
           this.modalService.open('login-modal');
