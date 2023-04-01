@@ -20,31 +20,34 @@
 p {
   font-weight: bold;
 }
-.parent .row {
-  width: 85%;
-}
 
 /*adding a horizontal scrollbar*/
 
 /*------------------------------*/
+.container {
+  overflow-x: auto;
+  margin: auto;
+}
 
 .container .row {
   display: flex;
-  flex-wrap: no-wrap;
-  overflow: auto;
-  white-space: nowrap;
-  margin: 20px;
+  justify-content: space-between;
+  flex-wrap: nowrap;
   max-height: 400px;
+  width: 90%;
+  margin: auto;
 }
 
-.row .board {
+.board {
+  flex: 0 0 300px;
+  width: 300px; /* or any other width you prefer */
+  margin-right: 10px; /* or any other margin you prefer */
   background-color: #fff;
-  max-height: 360px;
-  width: 300px;
-  overflow-x: auto;
-  display: inline-block;
+  height: 360px;
   padding: 10px;
+  overflow: auto;
 }
+
 .row .board:hover {
   cursor: move;
 }
@@ -86,4 +89,40 @@ p {
 .bi-plus-circle,
 .bi-plus-square-dotted:hover {
   cursor: pointer;
+}
+
+#board-delete button,
+#task-delete button {
+  padding: 3px 12px;
+  margin-right: 10px;
+}
+#board-delete p,
+#task-delete p {
+  margin-bottom: 15px;
+}
+#board-delete button.submit,
+#task-delete button.submit {
+  background-color: red;
+}
+
+form {
+  width: 370px;
+  height: 150px;
+  margin-top: 10px;
+}
+#add-task {
+  padding-right: 45px;
+}
+form {
+  padding: 10px 15px;
+}
+form label {
+  margin-right: 10px;
+  width: 30%;
+}
+form input {
+  padding: 3px;
+}
+form button {
+  padding: 3px 6px;
 }

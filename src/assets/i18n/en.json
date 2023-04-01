@@ -24,6 +24,7 @@
       "TITLE": "Login",
       "PASSWORD": "Password",
       "BUTTON": "Login",
+      "LOADING": "Loading...",
       "ACCOUNT": "No account yet",
       "CREATE": "Create new account",
       "ERROR": "Error: Login or password is incorrect"

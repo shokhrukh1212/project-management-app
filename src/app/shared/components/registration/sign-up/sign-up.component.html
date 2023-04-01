@@ -36,12 +36,17 @@
           [ngClass]="{
             'border border-success': registerForm.controls.name.valid
           }"
+          required
         />
         <div
-          *ngIf="submitted && registerForm.controls.name.errors"
+          *ngIf="
+            registerForm.controls.name.invalid &&
+            (registerForm.controls.name.dirty ||
+              registerForm.controls.name.touched)
+          "
           class="text-danger"
         >
-          min 5 characters
+          Name is required.
         </div>
 
         <label for="email">{{ "REGISTER.SIGNUP.LOGIN" | translate }}</label>
@@ -60,10 +65,14 @@
           }"
         />
         <div
-          *ngIf="submitted && registerForm.controls.login.errors"
+          *ngIf="
+            registerForm.controls.login.invalid &&
+            (registerForm.controls.login.dirty ||
+              registerForm.controls.login.touched)
+          "
           class="text-danger"
         >
-          min 5 characters, including letters and numbers
+          Login is required.
         </div>
 
         <label for="password">{{
@@ -84,13 +93,17 @@
           }"
         />
         <div
-          *ngIf="submitted && registerForm.controls.password.errors"
+          *ngIf="
+            registerForm.controls.password.invalid &&
+            (registerForm.controls.password.dirty ||
+              registerForm.controls.password.touched)
+          "
           class="text-danger"
         >
-          must be at least 8 characters
+          Password is required.
         </div>
 
-        <button routerLink="/auth/sign-up">
+        <button routerLink="/auth/sign-up" [disabled]="!registerForm.valid">
           {{ "REGISTER.SIGNUP.BUTTON" | translate }}
         </button>
         <p>

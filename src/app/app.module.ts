@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { NgDragDropModule } from 'ng-drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
@@ -16,7 +14,7 @@ import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AuthGuard } from './shared/guards/auth.guard';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -29,7 +27,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
     NgDragDropModule,
@@ -37,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DragDropModule,
     MatCardModule,
     HttpClientModule,
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -46,7 +44,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       defaultLanguage: 'en',
     }),
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

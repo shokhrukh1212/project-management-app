@@ -1,53 +1,50 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { loginUser } from 'src/app/shared/models/user.model';
+import { Component, Input, forwardRef } from '@angular/core';
 import { RegisterService } from 'src/app/shared/services/register.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+
 import { Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
-import { HeaderSwitcherService } from 'src/app/shared/services/header-switcher.service';
 import { ModalService } from '../../../services/modal.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   @Input() isLogged: boolean = false;
-  registerForm!: FormGroup;
+  isLoading: boolean = false;
   submitted: boolean = false;
   loginButton!: HTMLElement;
 
   constructor(
-    private formBuilder: FormBuilder,
     private registerService: RegisterService,
     private router: Router,
     private modalService: ModalService
   ) {}
 
-  ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
-      login: ['', [Validators.required, Validators.minLength(5)]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
-  }
+  public registerForm: FormGroup = new FormGroup({
+    login: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+  });
 
   onSubmit() {
+    this.isLoading = true;
     this.registerService
       .signIn(this.registerForm.value)
       .pipe(
         finalize(() => {
-          console.log('loading...');
+          this.isLoading = false;
         })
       )
       .subscribe({
         next: (result) => {
-          console.log(result);
-
           const { token, userId } = result;
           localStorage.setItem('token: ', token);
           localStorage.setItem('id: ', userId);
-          console.log(result);
           this.router.navigate(['/boards']);
         },
         error: (error) => {

@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Board } from '../../models/board.model';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Location } from '@angular/common';
 import { BoardsService } from '../../services/boards.service';
 import { BoardResponse } from '../../models/boards.model';
 
@@ -18,10 +17,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
     { _id: 1, title: 'board title 2' },
   ];
 
-  constructor(
-    private location: Location,
-    private boardService: BoardsService
-  ) {}
+  constructor(private boardService: BoardsService) {}
 
   private unsubscriber: Subject<void> = new Subject<void>();
 

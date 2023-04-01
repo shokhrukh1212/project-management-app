@@ -28,8 +28,24 @@
           id="login"
           name="login"
           formControlName="login"
-          required
+          [ngClass]="{
+            'border border-danger':
+              submitted && registerForm.controls.login.errors
+          }"
+          [ngClass]="{
+            'border border-success': registerForm.controls.login.valid
+          }"
         />
+        <div
+          *ngIf="
+            registerForm.controls.login.invalid &&
+            (registerForm.controls.login.dirty ||
+              registerForm.controls.login.touched)
+          "
+          class="text-danger"
+        >
+          Please, provide a login
+        </div>
 
         <label for="password">{{
           "REGISTER.LOGIN.PASSWORD" | translate
@@ -40,11 +56,43 @@
           id="password"
           name="password"
           formControlName="password"
-          required
+          [ngClass]="{
+            'border border-danger':
+              submitted && registerForm.controls.password.errors
+          }"
+          [ngClass]="{
+            'border border-success': registerForm.controls.password.valid
+          }"
         />
+        <div
+          *ngIf="
+            registerForm.controls.password.invalid &&
+            (registerForm.controls.password.dirty ||
+              registerForm.controls.password.touched)
+          "
+          class="text-danger"
+        >
+          Please, provide a password
+        </div>
 
-        <button routerLink="/auth/login" id="loginButton">
-          {{ "REGISTER.LOGIN.BUTTON" | translate }}
+        <button
+          routerLink="/auth/login"
+          id="loginButton"
+          type="submit"
+          [disabled]="!registerForm.valid"
+        >
+          <mat-spinner
+            color="primary"
+            diameter="38"
+            mode="indeterminate"
+            *ngIf="isLoading"
+          ></mat-spinner>
+          <span *ngIf="!isLoading">{{
+            "REGISTER.LOGIN.BUTTON" | translate
+          }}</span>
+          <span *ngIf="isLoading">{{
+            "REGISTER.LOGIN.LOADING" | translate
+          }}</span>
         </button>
         <p>
           {{ "REGISTER.LOGIN.ACCOUNT" | translate }}:

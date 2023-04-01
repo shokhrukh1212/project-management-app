@@ -1,0 +1,114 @@
+<app-boards-header></app-boards-header>
+<div class="parent">
+  <div class="row m-auto">
+    <h1>Board name: Todo list management</h1>
+    <h3>Board description: Description</h3>
+  </div>
+
+  <div class="container">
+    <div class="row mt-2">
+      <!-- Each column -->
+      <div
+        *ngFor="let element of boards"
+        class="board ms-2"
+        cdkDrag
+        cdkDropList
+      >
+        <!-- <div> -->
+        <div class="col-header">
+          <h2>{{ element.title }}</h2>
+          <i class="bi bi-trash3" (click)="openModal('board-delete')"></i>
+        </div>
+        <p>{{ element.description }}</p>
+        <!-- Each task -->
+        <div
+          cdkDropList
+          id="{{ element.id }}"
+          class="item-list"
+          [cdkDropListData]="element.boardInfo"
+          [cdkDropListConnectedTo]="connectedTo"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div class="item-box" *ngFor="let board of element.boardInfo" cdkDrag>
+            <div class="board-task-content">
+              <div class="board-task-info">
+                <h3>{{ board.name }}</h3>
+                <p>{{ board.description }}</p>
+              </div>
+              <div class="board-task-delete">
+                <i class="bi bi-trash3" (click)="openModal('task-delete')"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="board-add">
+          <i class="bi bi-plus-circle" (click)="openModal('add-task')"></i>
+        </div>
+      </div>
+      <div class="col">
+        <i
+          class="bi bi-plus-square-dotted"
+          title="add a new column"
+          (click)="openModal('add-column')"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modals id="board-delete">
+  <h3>Are you sure?</h3>
+  <p>Are you sure you want to delete this column?</p>
+  <button (click)="closeModal('board-delete')">cancel</button>
+  <button class="submit" type="submit">Ok</button>
+</app-modals>
+
+<app-modals id="task-delete">
+  <h3>Are you sure?</h3>
+  <p>Are you sure you want to delete this task?</p>
+  <button (click)="closeModal('task-delete')">cancel</button>
+  <button class="submit" type="submit">Ok</button>
+</app-modals>
+
+<app-modals id="add-task">
+  <h3>Create a task:</h3>
+  <form id="board-modal">
+    <label for="name"><span>*</span>Title</label>
+    <input type="text" name="title" id="title" placeholder="title" />
+    <br />
+    <br />
+    <label for="description"><span>*</span>Description</label>
+    <input
+      type="text"
+      name="description"
+      id="description"
+      placeholder="description"
+    />
+    <br />
+    <div
+      class="container d-flex align-items-center justify-content-md-end mt-4"
+    >
+      <button class="btn btn-primary" type="submit" required>Submit</button>
+      <button class="btn btn-danger ms-2" (click)="closeModal('add-task')">
+        Close
+      </button>
+    </div>
+  </form>
+</app-modals>
+
+<app-modals id="add-column">
+  <h3>Create a column:</h3>
+  <form id="board-modal">
+    <label for="name"><span>*</span>Title: </label>
+    <input type="text" name="title" id="title" placeholder="title" />
+    <br />
+    <div
+      class="container d-flex align-items-center justify-content-md-end mt-4"
+    >
+      <button class="btn btn-primary" type="submit" required>Submit</button>
+      <button class="btn btn-danger ms-2" (click)="closeModal('add-column')">
+        Close
+      </button>
+    </div>
+  </form>
+</app-modals>

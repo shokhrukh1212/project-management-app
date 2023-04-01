@@ -1,7 +1,7 @@
 <app-boards-header></app-boards-header>
-<app-main-route
+<app-board
   [boards]="boards"
   [(ngModel)]="boardSwitcher"
   *ngIf="boardSwitcher"
-></app-main-route>
-<app-board-route *ngIf="!boardSwitcher"></app-board-route>
+></app-board>
+<app-column *ngIf="!boardSwitcher" [boards]="boards"></app-column>

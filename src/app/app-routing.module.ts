@@ -5,9 +5,9 @@ import { WelcomePageComponent } from './shared/components/welcome-page/welcome-p
 import { BoardsComponent } from './shared/components/boards/boards.component';
 import { LoginComponent } from './shared/components/registration/login/login.component';
 import { SignUpComponent } from './shared/components/registration/sign-up/sign-up.component';
-import { MainRouteComponent } from './shared/components/boards/main-route/main-route.component';
-import { BoardRouteComponent } from './shared/components/boards/board-route/board-route.component';
-
+import { BoardComponent } from './shared/components/boards/board/board.component';
+import { ColumnComponent } from './shared/components/boards/column/column.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
@@ -21,6 +21,7 @@ export const routes: Routes = [
   {
     path: 'boards',
     component: BoardsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth/signin',
@@ -30,8 +31,9 @@ export const routes: Routes = [
     path: 'auth/signup',
     component: SignUpComponent,
   },
-  { path: 'board', component: BoardRouteComponent },
-  { path: 'main', component: MainRouteComponent },
+  { path: 'board', component: ColumnComponent, canActivate: [AuthGuard] },
+  { path: 'main', component: BoardComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
 ];
 
 @NgModule({

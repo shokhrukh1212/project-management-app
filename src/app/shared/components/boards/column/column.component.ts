@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Board, BoardColumn } from 'src/app/shared/models/board.model';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-
+import { ModalService } from 'src/app/shared/services/modal.service';
 @Component({
-  selector: 'app-board-route',
-  templateUrl: './board-route.component.html',
-  styleUrls: ['./board-route.component.css'],
+  selector: 'app-column',
+  templateUrl: './column.component.html',
+  styleUrls: ['./column.component.css'],
 })
-export class BoardRouteComponent {
+export class ColumnComponent {
+  @Input('boards') boardsParent: Board[] = [];
   connectedTo: string[] = [];
   boards: {
     id: string;
@@ -20,7 +21,7 @@ export class BoardRouteComponent {
     boardInfo: BoardColumn[];
   }[] = [];
 
-  constructor() {
+  constructor(private modalService: ModalService) {
     this.boards = [
       {
         id: 'board-1',
@@ -80,5 +81,13 @@ export class BoardRouteComponent {
         event.currentIndex
       );
     }
+  }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }

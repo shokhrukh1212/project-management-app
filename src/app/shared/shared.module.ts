@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
@@ -12,11 +12,12 @@ import { WelcomeMainComponent } from './components/welcome-page/welcome-main/wel
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/registration/login/login.component';
 import { SignUpComponent } from './components/registration/sign-up/sign-up.component';
-import { MainRouteComponent } from './components/boards/main-route/main-route.component';
-import { BoardRouteComponent } from './components/boards/board-route/board-route.component';
 import { BoardsComponent } from './components/boards/boards.component';
 import { WelcomeHeaderComponent } from './components/welcome-page/welcome-header/welcome-header.component';
 import { BoardsHeaderComponent } from './components/boards/boards-header/boards-header.component';
+import { ColumnComponent } from './components/boards/column/column.component';
+import { TaskComponent } from './components/boards/task/task.component';
+import { BoardComponent } from './components/boards/board/board.component';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,11 +33,12 @@ const COMPONENTS = [
   RegistrationComponent,
   LoginComponent,
   SignUpComponent,
-  MainRouteComponent,
-  BoardRouteComponent,
   BoardsComponent,
   WelcomeHeaderComponent,
   BoardsHeaderComponent,
+  ColumnComponent,
+  TaskComponent,
+  BoardComponent,
 ];
 
 @NgModule({
@@ -51,6 +53,7 @@ const COMPONENTS = [
     MatFormFieldModule,
     MatIconModule,
     TranslateModule,
+    MatProgressSpinnerModule,
   ],
   exports: COMPONENTS,
 })
