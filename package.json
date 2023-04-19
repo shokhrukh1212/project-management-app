@@ -23,6 +23,7 @@
     "@popperjs/core": "^2.11.7",
     "angular-authentication-service": "^1.1.8",
     "bootstrap-icons": "^1.10.3",
+    "ng-bootstrap": "^1.6.3",
     "ng-drag-drop": "^5.0.0",
     "rxjs": "~7.8.0",
     "simple-ng-loader": "^2.0.0",
