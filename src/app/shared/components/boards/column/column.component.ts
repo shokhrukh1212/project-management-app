@@ -1,93 +1,107 @@
-import { Component, Input } from '@angular/core';
-import { Board, BoardColumn } from 'src/app/shared/models/board.model';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { BoardNameEmitService } from 'src/app/shared/services/board-name-emit.service';
+import { ColumnsService } from 'src/app/shared/services/columns.service';
+import { BoardIdEmitService } from 'src/app/shared/services/board-id-emit.service';
+import { CreatedColumn } from 'src/app/shared/models/column.model';
+import { finalize } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-column',
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.css'],
 })
-export class ColumnComponent {
-  @Input('boards') boardsParent: Board[] = [];
+export class ColumnComponent implements OnInit {
+  public title: string = '';
   connectedTo: string[] = [];
-  boards: {
-    id: string;
-    title: string;
-    description: string;
-    boardInfo: BoardColumn[];
-  }[] = [];
 
-  constructor(private modalService: ModalService) {
-    this.boards = [
-      {
-        id: 'board-1',
-        title: 'Board title 1',
-        description: 'Board 1 description',
-        boardInfo: [
-          { name: 'board 1', description: 'description 1' },
-          { name: 'board 2', description: 'description 2' },
-          { name: 'board 3', description: 'description 3' },
-          { name: 'board 4', description: 'description 4' },
-        ],
-      },
-      {
-        id: 'board-2',
-        title: 'Board title 2',
-        description: 'Board 2 description',
-        boardInfo: [],
-      },
-      {
-        id: 'board-3',
-        title: 'Board title 3',
-        description: 'Board 3 description',
-        boardInfo: [
-          { name: 'board 1', description: 'description 1' },
-          { name: 'board 2', description: 'description 2' },
-        ],
-      },
-      {
-        id: 'board-4',
-        title: 'Board title 4',
-        description: 'Board 4 description',
-        boardInfo: [
-          { name: 'board 1', description: 'description 1' },
-          { name: 'board 2', description: 'description 2' },
-          { name: 'board 3', description: 'description 3' },
-        ],
-      },
-    ];
+  // storing columns array
+  columns: CreatedColumn[] = [];
+  columnTitle: string = '';
+  order: number = 0;
+  onCreationColumn: boolean = false;
+  currentId: string = '';
+  TOKEN = localStorage.getItem('token: ');
 
-    for (let board of this.boards) {
-      this.connectedTo.push(board.id);
-    }
-  }
+  constructor(
+    private modalService: ModalService,
+    private boardNameEmit: BoardNameEmitService,
+    private columnsService: ColumnsService,
+    private boardIdEmitService: BoardIdEmitService,
+    private jwtService: JwtHelperService,
+    private router: Router
+  ) {}
 
-  drop(event: CdkDragDrop<BoardColumn[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+  ngOnInit(): void {
+    if (this.jwtService.isTokenExpired(this.TOKEN)) {
+      this.router.navigateByUrl('/welcome');
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      this.boardIdEmitService.boardId.subscribe((data) => {
+        this.currentId = data;
+      });
+
+      this.columnsService.getColumns().subscribe((data) => {
+        this.columns = data;
+      });
+
+      this.boardNameEmit.boardName.subscribe((data) => {
+        this.title = data;
+      });
     }
   }
+
+  onCreateColumn() {
+    this.onCreationColumn = true;
+    this.columnsService
+      .createColumn({ title: this.columnTitle, order: this.order++ })
+      .pipe(
+        finalize(() => {
+          this.onCreationColumn = false;
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          this.columns.push(data);
+          this.closeModal('add-column');
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+
+  // drop(event: CdkDragDrop<BoardColumn[]>) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex
+  //     );
+  //   } else {
+  //     transferArrayItem(
+  //       event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex
+  //     );
+  //   }
+  // }
 
   openModal(id: string) {
     this.modalService.open(id);
+    this.columnTitle = '';
   }
 
   closeModal(id: string) {
     this.modalService.close(id);
+    this.modalService.remove(id);
+    this.columnTitle = '';
   }
 }

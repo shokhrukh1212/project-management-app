@@ -2,6 +2,16 @@
 <app-board
   [boards]="boards"
   [(ngModel)]="boardSwitcher"
-  *ngIf="boardSwitcher"
+  *ngIf="boardSwitcher && !loadingBoards"
 ></app-board>
-<app-column *ngIf="!boardSwitcher" [boards]="boards"></app-column>
+
+<!-- Loading template while loading all boards -->
+<div class="w-100" id="loadingBoards" *ngIf="loadingBoards">
+  <mat-spinner
+    color="primary"
+    diameter="100"
+    mode="indeterminate"
+  ></mat-spinner>
+</div>
+
+<app-column *ngIf="!boardSwitcher"> </app-column>

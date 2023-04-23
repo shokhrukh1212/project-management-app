@@ -42,3 +42,6 @@ form {
 #board-modal input {
   padding: 3px;
 }
+.board-user-edit {
+  padding: 5px;
+}

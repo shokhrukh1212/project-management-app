@@ -13,7 +13,7 @@ export class ModalService {
 
   remove(modal: any) {
     // remove modal
-    this.modals.filter((m) => m !== modal);
+    this.modals = this.modals.filter((m) => m !== modal);
   }
 
   open(id: string) {

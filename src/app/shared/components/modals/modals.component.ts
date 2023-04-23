@@ -42,7 +42,6 @@ export class ModalsComponent implements OnInit {
   open(): void {
     this.element.style.display = 'block';
     document.body.classList.add('custom-modal-open');
-    console.log('clicked');
   }
 
   // close modal

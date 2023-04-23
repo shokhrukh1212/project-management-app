@@ -25,7 +25,7 @@
 }
 .board {
   background: url("https://static.vecteezy.com/system/resources/previews/007/188/453/original/abstract-blur-background-with-pastel-color-free-vector.jpg");
-  max-height: 100px;
+  max-height: 80px;
   border-radius: 15px;
   display: flex;
   justify-content: space-between;
@@ -39,6 +39,12 @@
   padding: 10px;
   padding-left: 15px;
   cursor: pointer;
+}
+
+.routes {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 50px;
 }
 
 #main-route button {

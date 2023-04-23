@@ -31,7 +31,11 @@ export const routes: Routes = [
     path: 'auth/signup',
     component: SignUpComponent,
   },
-  { path: 'board', component: ColumnComponent, canActivate: [AuthGuard] },
+  {
+    path: 'boards/:board_id',
+    component: ColumnComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'main', component: BoardComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
 ];

@@ -1,11 +1,12 @@
 import { Component, Input, forwardRef } from '@angular/core';
 import { RegisterService } from 'src/app/shared/services/register.service';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../services/modal.service';
+import { UsernameEmitService } from 'src/app/shared/services/username-emit.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,11 +17,14 @@ export class LoginComponent {
   isLoading: boolean = false;
   submitted: boolean = false;
   loginButton!: HTMLElement;
+  // getting login to show when a user login
+  login: string = '';
 
   constructor(
     private registerService: RegisterService,
     private router: Router,
-    private modalService: ModalService
+    private modalService: ModalService,
+    public userEdit: UsernameEmitService
   ) {}
 
   public registerForm: FormGroup = new FormGroup({
@@ -46,8 +50,12 @@ export class LoginComponent {
           localStorage.setItem('token: ', token);
           localStorage.setItem('id: ', userId);
           this.router.navigate(['/boards']);
+
+          this.login = this.registerForm.get('login')?.value;
+          // emitting this.login by usernameEdit service
+          this.userEdit.emitUsername(this.login);
         },
-        error: (error) => {
+        error: () => {
           this.modalService.open('login-modal');
         },
       });

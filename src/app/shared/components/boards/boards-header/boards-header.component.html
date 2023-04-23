@@ -50,37 +50,19 @@
           </ul>
         </div>
 
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown button
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div>
-
         <!-- add new board -->
         <div
           class="col-lg-2 dropdown d-grid gap-2 d-md-flex justify-content-md-start align-items-center"
         >
           <i
             class="bi bi-plus-square-dotted"
-            (click)="openModal('custom-modal-1')"
+            (click)="openModal('create-board')"
           ></i>
           <span>{{ "BOARDHEADER.ADD" | translate }}</span>
         </div>
 
         <!-- Username, logout and edit user info -->
-        <div
-          class="col-lg-3 dropdown d-grid gap-2 d-md-flex justify-content-md-end"
-        >
+        <div class="col-lg-3 dropdown d-flex justify-content-md-end">
           <button
             class="btn me-md-2 bigger-font"
             type="button"
@@ -88,14 +70,13 @@
             aria-expanded="false"
             aria-haspopup="true"
           >
-            {{ "BOARDHEADER.USERNAME" | translate }}
+            <span *ngIf="buttonLabel">{{ buttonLabel }}</span>
+            <span *ngIf="!buttonLabel"> username</span>
             <i class="bi bi-person-circle"></i>
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu board-user-edit">
             <li>
-              <a class="dropdown-item" href="/">{{
-                "BOARDHEADER.EDIT" | translate
-              }}</a>
+              <a class="dropdown-item">{{ "BOARDHEADER.EDIT" | translate }}</a>
             </li>
             <li>
               <a class="dropdown-item" (click)="onLogOut()">{{
@@ -109,19 +90,31 @@
   </div>
 </nav>
 
-<app-modals id="custom-modal-1">
+<app-modals id="create-board">
   <form id="board-modal">
     <label for="name"><span>*</span>Title</label>
-    <input type="text" name="title" id="title" placeholder="title" />
+    <input
+      type="text"
+      name="title"
+      id="title"
+      placeholder="title"
+      [(ngModel)]="boardTitle"
+    />
     <br />
     <div
       class="container d-flex align-items-center justify-content-md-end mt-4"
     >
-      <button class="btn btn-primary" type="submit" required>Submit</button>
       <button
-        class="btn btn-danger ms-2"
-        (click)="closeModal('custom-modal-1')"
+        class="btn btn-primary"
+        type="submit"
+        (click)="onCreateBoard(boardTitle)"
+        required
+        [disabled]="!boardTitle"
       >
+        <span *ngIf="!isCreatedBoard">Ok</span>
+        <span *ngIf="isCreatedBoard">Creating ...</span>
+      </button>
+      <button class="btn btn-danger ms-2" (click)="closeModal('create-board')">
         Close
       </button>
     </div>
