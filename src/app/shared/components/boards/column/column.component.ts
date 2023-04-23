@@ -25,6 +25,7 @@ export class ColumnComponent implements OnInit {
   // storing columns array
   columns: CreatedColumn[] = [];
   columnTitle: string = '';
+  columnId: string = '';
   order: number = 0;
   onCreationColumn: boolean = false;
   currentId: string = '';
@@ -77,6 +78,8 @@ export class ColumnComponent implements OnInit {
       });
   }
 
+  onDeleteTask() {}
+
   // drop(event: CdkDragDrop<BoardColumn[]>) {
   //   if (event.previousContainer === event.container) {
   //     moveItemInArray(
@@ -97,6 +100,11 @@ export class ColumnComponent implements OnInit {
   openModal(id: string) {
     this.modalService.open(id);
     this.columnTitle = '';
+  }
+
+  openModalToDeleteColumn(id: string, columnId: string) {
+    this.modalService.open(id);
+    this.columnId = columnId;
   }
 
   closeModal(id: string) {
