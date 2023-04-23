@@ -11,6 +11,7 @@ import { BoardIdEmitService } from 'src/app/shared/services/board-id-emit.servic
 import { CreatedColumn } from 'src/app/shared/models/column.model';
 import { finalize } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { TaskInfoEmitService } from 'src/app/shared/services/task-info-emit.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,8 +29,13 @@ export class ColumnComponent implements OnInit {
   columnId: string = '';
   order: number = 0;
   onCreationColumn: boolean = false;
+  onDeletationTask: boolean = false;
   currentId: string = '';
   TOKEN = localStorage.getItem('token: ');
+
+  // storing values related to task
+  taskTitle: string = '';
+  taskdescription: string = '';
 
   constructor(
     private modalService: ModalService,
@@ -37,7 +43,8 @@ export class ColumnComponent implements OnInit {
     private columnsService: ColumnsService,
     private boardIdEmitService: BoardIdEmitService,
     private jwtService: JwtHelperService,
-    private router: Router
+    private router: Router,
+    private taskInfoEmitService: TaskInfoEmitService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +65,10 @@ export class ColumnComponent implements OnInit {
     }
   }
 
+  onChange(newValue: any) {
+    this.columnTitle += newValue.data;
+  }
+
   onCreateColumn() {
     this.onCreationColumn = true;
     this.columnsService
@@ -71,14 +82,13 @@ export class ColumnComponent implements OnInit {
         next: (data) => {
           this.columns.push(data);
           this.closeModal('add-column');
+          this.columnTitle = '';
         },
         error: (error) => {
           console.log(error);
         },
       });
   }
-
-  onDeleteTask() {}
 
   // drop(event: CdkDragDrop<BoardColumn[]>) {
   //   if (event.previousContainer === event.container) {
@@ -99,12 +109,39 @@ export class ColumnComponent implements OnInit {
 
   openModal(id: string) {
     this.modalService.open(id);
-    this.columnTitle = '';
   }
 
   openModalToDeleteColumn(id: string, columnId: string) {
     this.modalService.open(id);
     this.columnId = columnId;
+  }
+
+  onDeleteColumn() {
+    this.onDeletationTask = true;
+    this.columnsService
+      .deleteColumn(this.columnId)
+      .pipe(
+        finalize(() => {
+          this.onDeletationTask = false;
+        })
+      )
+      .subscribe((data) => {
+        this.columns = this.columns.filter((column) => column._id !== data._id);
+        this.closeModal('column-delete');
+      });
+  }
+
+  openModalToCreateTask(id: string, columnId: string) {
+    this.modalService.open(id);
+    this.columnId = columnId;
+  }
+
+  onCreateTask() {
+    const taskInfo = {
+      title: this.taskTitle,
+      description: this.taskdescription,
+    };
+    this.taskInfoEmitService.emitTaskInfo(taskInfo);
   }
 
   closeModal(id: string) {

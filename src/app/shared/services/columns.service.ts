@@ -12,6 +12,18 @@ export class ColumnsService {
   baseURL: string = 'https://khon-project-management.onrender.com';
   TOKEN = localStorage.getItem('token: ');
 
+  getColumns(): Observable<CreatedColumn[]> {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.TOKEN}`
+    );
+
+    return this.http.get<CreatedColumn[]>(
+      this.baseURL + `/boards/${localStorage.getItem('boardId')}/columns`,
+      { headers }
+    );
+  }
+
   createColumn(column: CreateColumn): Observable<CreatedColumn> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -24,14 +36,15 @@ export class ColumnsService {
     );
   }
 
-  getColumns(): Observable<CreatedColumn[]> {
+  deleteColumn(columnId: string): Observable<CreatedColumn> {
     const headers = new HttpHeaders().set(
       'Authorization',
       `Bearer ${this.TOKEN}`
     );
 
-    return this.http.get<CreatedColumn[]>(
-      this.baseURL + `/boards/${localStorage.getItem('boardId')}/columns`,
+    return this.http.delete<CreatedColumn>(
+      this.baseURL +
+        `/boards/${localStorage.getItem('boardId')}/columns/${columnId}`,
       { headers }
     );
   }

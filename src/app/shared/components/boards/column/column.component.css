@@ -91,16 +91,16 @@ p {
   cursor: pointer;
 }
 
-#board-delete button,
+#column-delete button,
 #task-delete button {
   padding: 3px 12px;
   margin-right: 10px;
 }
-#board-delete p,
+#column-delete p,
 #task-delete p {
   margin-bottom: 15px;
 }
-#board-delete button.submit,
+#column-delete button.submit,
 #task-delete button.submit {
   background-color: red;
 }
