@@ -19,7 +19,6 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './shared/guards/auth.guard';
-import { ModalComponent } from './modal/modal.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -27,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, DropdownDirective, ModalComponent],
+  declarations: [AppComponent, DropdownDirective],
   imports: [
     AppRoutingModule,
     BrowserModule,
