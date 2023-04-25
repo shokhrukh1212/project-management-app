@@ -12,7 +12,6 @@ import { BoardsService } from '../../services/boards.service';
   styleUrls: ['./boards.component.css'],
 })
 export class BoardsComponent implements OnInit, OnDestroy {
-  boardSwitcher: boolean = true;
   loadingBoards: boolean = false;
   boards: createdBoard[] = [];
   private subscription!: Subscription;

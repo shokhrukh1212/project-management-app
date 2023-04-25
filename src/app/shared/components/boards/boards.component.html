@@ -1,9 +1,5 @@
 <app-boards-header></app-boards-header>
-<app-board
-  [boards]="boards"
-  [(ngModel)]="boardSwitcher"
-  *ngIf="boardSwitcher && !loadingBoards"
-></app-board>
+<app-board [boards]="boards" *ngIf="!loadingBoards"></app-board>
 
 <!-- Loading template while loading all boards -->
 <div class="w-100" id="loadingBoards" *ngIf="loadingBoards">
@@ -13,5 +9,3 @@
     mode="indeterminate"
   ></mat-spinner>
 </div>
-
-<app-column *ngIf="!boardSwitcher"> </app-column>

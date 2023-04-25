@@ -51,8 +51,8 @@ export class LoginComponent {
           localStorage.setItem('id: ', userId);
           this.router.navigate(['/boards']);
 
-          this.login = this.registerForm.get('login')?.value;
           // emitting this.login by usernameEdit service
+          this.login = this.registerForm.get('login')?.value;
           this.userEdit.emitUsername(this.login);
         },
         error: () => {

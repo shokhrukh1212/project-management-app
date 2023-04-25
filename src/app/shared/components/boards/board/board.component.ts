@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { createdBoard } from 'src/app/shared/models/board.model';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../services/modal.service';
@@ -12,7 +12,7 @@ import { finalize } from 'rxjs';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit, OnDestroy {
   @Input('boards') boards: createdBoard[] = [];
   @Input('boardSwitcher') boardSwitcher: boolean = true;
   board_ID: string = '';
@@ -25,6 +25,8 @@ export class BoardComponent {
     private boardsService: BoardsService,
     private boardIdEmitService: BoardIdEmitService
   ) {}
+
+  ngOnInit(): void {}
 
   onBoard(id: string, title: string) {
     this.router.navigate([`/boards`, id]);
@@ -43,7 +45,6 @@ export class BoardComponent {
 
   closeModal(id: string) {
     this.modalService.close(id);
-    this.modalService.remove(id);
   }
 
   // Delete a board
@@ -59,9 +60,10 @@ export class BoardComponent {
           })
         )
         .subscribe((data) => {
-          console.log(data);
           this.boards = this.boards.filter((board) => board._id !== data._id);
         });
     }
   }
+
+  ngOnDestroy(): void {}
 }

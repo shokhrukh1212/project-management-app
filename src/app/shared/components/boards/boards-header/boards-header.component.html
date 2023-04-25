@@ -70,8 +70,7 @@
             aria-expanded="false"
             aria-haspopup="true"
           >
-            <span *ngIf="buttonLabel">{{ buttonLabel }}</span>
-            <span *ngIf="!buttonLabel"> username</span>
+            <span>{{ username }}</span>
             <i class="bi bi-person-circle"></i>
           </button>
           <ul class="dropdown-menu board-user-edit">
@@ -92,6 +91,8 @@
 
 <app-modals id="create-board">
   <form id="board-modal">
+    <h2>Create a board</h2>
+    <br />
     <label for="name"><span>*</span>Title</label>
     <input
       type="text"

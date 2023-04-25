@@ -1,5 +1,5 @@
 <app-boards-header></app-boards-header>
-<div class="parent">
+<div class="parent" *ngIf="!loadingColumns">
   <div class="row m-auto">
     <h1>Board name: {{ title }}</h1>
   </div>
@@ -7,28 +7,18 @@
   <div class="container">
     <div class="row mt-2">
       <!-- Each column -->
-      <div
-        *ngFor="let column of columns"
-        class="board ms-2"
-        cdkDrag
-        cdkDropList
-      >
+      <div *ngFor="let column of columns" class="board ms-2">
         <!-- <div> -->
         <div class="col-header">
-          <h2>{{ column.title }}</h2>
+          <h3 title="edit a column">{{ column.title }}</h3>
           <i
             class="bi bi-trash3"
             (click)="openModalToDeleteColumn('column-delete', column._id)"
+            title="delete a column"
           ></i>
         </div>
         <!-- Each task -->
-        <app-task></app-task>
-        <div class="board-add">
-          <i
-            class="bi bi-plus-circle"
-            (click)="openModalToCreateTask('add-task', column._id)"
-          ></i>
-        </div>
+        <app-task [columnId]="column._id"></app-task>
       </div>
       <div class="col">
         <i
@@ -45,7 +35,7 @@
   <h3>Are you sure?</h3>
   <p>Are you sure you want to delete this column?</p>
   <button class="btn btn-danger" (click)="closeModal('column-delete')">
-    cancel
+    Cancel
   </button>
   <button class="btn btn-primary" type="submit" (click)="onDeleteColumn()">
     <span *ngIf="!onDeletationTask">Ok</span>
@@ -54,81 +44,39 @@
 </app-modals>
 
 <app-modals id="add-column">
-  <h3>Create a column:</h3>
-  <form id="board-modal">
-    <label for="name"><span>*</span>Title: </label>
-    <input
-      type="text"
-      name="title"
-      id="title"
-      placeholder="title"
-      (input)="onChange($event)"
-      [value]="columnTitle"
-    />
-    <br />
-    <div
-      class="container d-flex align-items-center justify-content-md-end mt-4"
+  <h2>Create a column:</h2>
+  <br />
+  <label for="name"><span>*</span>Title: </label>
+  <input
+    type="text"
+    name="title"
+    id="title"
+    placeholder="title"
+    [(ngModel)]="columnTitle"
+    required
+    maxlength="18"
+  />
+  <br />
+  <div class="container d-flex align-items-center justify-content-md-end mt-4">
+    <button
+      class="btn btn-primary"
+      [disabled]="!columnTitle"
+      (click)="onCreateColumn()"
     >
-      <button
-        class="btn btn-primary"
-        type="submit"
-        required
-        [disabled]="!columnTitle"
-        (click)="onCreateColumn()"
-      >
-        <span *ngIf="!onCreationColumn">Submit</span>
-        <span *ngIf="onCreationColumn">Creating...</span>
-      </button>
-      <button class="btn btn-danger ms-2" (click)="closeModal('add-column')">
-        Close
-      </button>
-    </div>
-  </form>
+      <span *ngIf="!onCreationColumn">Submit</span>
+      <span *ngIf="onCreationColumn">Creating...</span>
+    </button>
+    <button class="btn btn-danger ms-2" (click)="closeModal('add-column')">
+      Close
+    </button>
+  </div>
 </app-modals>
 
-<app-modals id="task-delete">
-  <h3>Are you sure?</h3>
-  <p>Are you sure you want to delete this task?</p>
-  <button (click)="closeModal(' task-delete')">cancel</button>
-  <button class="submit" type="submit">Ok</button>
-</app-modals>
-
-<app-modals id="add-task">
-  <h3>Create a task:</h3>
-  <form id="board-modal">
-    <label for="name"><span>*</span>Title</label>
-    <input
-      type="text"
-      name="title"
-      id="title"
-      placeholder="title"
-      [(ngModel)]="taskTitle"
-    />
-    <br />
-    <br />
-    <label for="description"><span>*</span>Description</label>
-    <input
-      type="text"
-      name="description"
-      id="description"
-      placeholder="description"
-      [(ngModel)]="taskdescription"
-    />
-    <br />
-    <div
-      class="container d-flex align-items-center justify-content-md-end mt-4"
-    >
-      <button
-        class="btn btn-primary"
-        type="submit"
-        [disabled]="!taskTitle || !taskdescription"
-        (click)="onCreateTask()"
-      >
-        Submit
-      </button>
-      <button class="btn btn-danger ms-2" (click)="closeModal('add-task')">
-        Close
-      </button>
-    </div>
-  </form>
-</app-modals>
+<!-- Loading template while loading all columns -->
+<div class="w-100" id="loadingColumns" *ngIf="loadingColumns">
+  <mat-spinner
+    color="primary"
+    diameter="100"
+    mode="indeterminate"
+  ></mat-spinner>
+</div>

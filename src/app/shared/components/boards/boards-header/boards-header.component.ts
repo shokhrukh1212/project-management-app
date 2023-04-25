@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,7 +14,7 @@ import { finalize } from 'rxjs';
   styleUrls: ['./boards-header.component.css'],
 })
 export class BoardsHeaderComponent implements OnInit {
-  public buttonLabel: string = '';
+  username: string = '';
   boardTitle: string = '';
   boardInfo: createNewBoard = { title: '', owner: '', users: [] };
   isCreatedBoard: boolean = false;
@@ -25,23 +25,25 @@ export class BoardsHeaderComponent implements OnInit {
     public translate: TranslateService,
     public usernameService: UsernameEmitService,
     private createBoardService: CreateBoardService,
-    private boardsService: BoardsService
+    private boardsService: BoardsService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.usernameService.usernameSubject.subscribe((data: string) => {
-      this.buttonLabel = data;
+      this.username = data;
+      console.log(this.username);
+      this.cdr.detectChanges(); // trigger change detection
     });
   }
 
   openModal(id: string) {
-    this.modalService.add(id);
     this.modalService.open(id);
   }
 
   closeModal(id: string) {
     this.modalService.close(id);
-    this.modalService.remove(id);
+    this.boardTitle = '';
   }
 
   onLogOut() {

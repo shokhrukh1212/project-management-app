@@ -38,7 +38,7 @@
   <button class="btn btn-danger" (click)="closeModal('main-route')">
     Cancel
   </button>
-  <button class="btn btn-primary" type="submit" (click)="onDeleteBoard()">
+  <button class="btn btn-primary" (click)="onDeleteBoard()">
     <span *ngIf="!isBoardDeleted">Ok</span>
     <span *ngIf="isBoardDeleted">Deleting...</span>
   </button>
