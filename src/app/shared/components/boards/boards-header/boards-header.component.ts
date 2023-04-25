@@ -32,7 +32,6 @@ export class BoardsHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.usernameService.usernameSubject.subscribe((data: string) => {
       this.username = data;
-      console.log(this.username);
       this.cdr.detectChanges(); // trigger change detection
     });
   }
@@ -75,7 +74,6 @@ export class BoardsHeaderComponent implements OnInit {
       )
       .subscribe((data) => {
         this.createBoardService.createBoard(data);
-        console.log(data);
       });
   }
 }

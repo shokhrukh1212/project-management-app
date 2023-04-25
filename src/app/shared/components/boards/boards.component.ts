@@ -34,7 +34,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
     // if token is expired, navigate to welcome page
     if (this.jwtService.isTokenExpired(this.TOKEN)) {
       this.router.navigateByUrl('/welcome');
-      console.log('token is expired');
     } else {
       this.loadingBoards = true;
       history.pushState(null, '');

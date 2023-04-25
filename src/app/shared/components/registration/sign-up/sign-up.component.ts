@@ -31,9 +31,9 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.registerService.addUser(this.registerForm.value).subscribe((data) => {
-      console.log('data => ', data);
-    });
+    this.registerService
+      .addUser(this.registerForm.value)
+      .subscribe((data) => {});
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;

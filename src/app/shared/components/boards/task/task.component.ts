@@ -38,7 +38,6 @@ export class TaskComponent implements OnInit, OnDestroy {
       )
       .subscribe((data) => {
         this.tasks = data;
-        console.log(this.tasks);
       });
   }
 
@@ -61,13 +60,11 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
   openModalToCreateTask(id: string) {
     this.modalService.open(id);
-    console.log(this.columnId);
   }
 
   openModalToDeleteTask(id: string, taskId: string) {
     this.taskId = taskId;
     this.modalService.open(id);
-    console.log(this.taskId);
   }
 
   closeModal(id: string) {
