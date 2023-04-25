@@ -38,34 +38,36 @@ export class TaskComponent implements OnInit, OnDestroy {
       )
       .subscribe((data) => {
         this.tasks = data;
+        console.log(this.tasks);
       });
   }
 
   // drag and drop
-  // drop(event: CdkDragDrop<CreatedTask[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   } else {
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   }
-  // }
+  drop(event: CdkDragDrop<CreatedTask[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
   openModalToCreateTask(id: string) {
     this.modalService.open(id);
-    console.log('column ID after modal: ', this.columnId);
+    console.log(this.columnId);
   }
 
   openModalToDeleteTask(id: string, taskId: string) {
     this.taskId = taskId;
     this.modalService.open(id);
+    console.log(this.taskId);
   }
 
   closeModal(id: string) {

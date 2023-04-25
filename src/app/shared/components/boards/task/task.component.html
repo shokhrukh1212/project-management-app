@@ -1,8 +1,13 @@
-<div>
-  <div class="item-box" *ngFor="let task of tasks">
+<div
+  cdkDropList
+  [cdkDropListData]="tasks"
+  class="example-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  <div class="item-box" *ngFor="let task of tasks" cdkDrag>
     <div class="board-task-content">
       <div class="board-task-info">
-        <h5 title="edit a task">{{ task.title }}</h5>
+        <h5>{{ task.title }}</h5>
         <p>{{ task.description }}</p>
       </div>
       <div class="board-task-delete">

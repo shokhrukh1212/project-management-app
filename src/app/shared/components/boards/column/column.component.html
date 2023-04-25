@@ -5,9 +5,15 @@
   </div>
 
   <div class="container">
-    <div class="row mt-2">
+    <div
+      class="row mt-2"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+      cdkDropListGroup
+    >
       <!-- Each column -->
-      <div *ngFor="let column of columns" class="board ms-2">
+      <div *ngFor="let column of columns" class="board ms-2" cdkDrag>
         <!-- <div> -->
         <div class="col-header">
           <h3 title="edit a column">{{ column.title }}</h3>
@@ -18,7 +24,9 @@
           ></i>
         </div>
         <!-- Each task -->
-        <app-task [columnId]="column._id"></app-task>
+        <div class="task">
+          <app-task [columnId]="column._id"></app-task>
+        </div>
       </div>
       <div class="col">
         <i

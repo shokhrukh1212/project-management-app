@@ -82,8 +82,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.columns.push(data);
           this.closeModal('add-column');
-          console.log('Created column: ', data);
-          console.log('All columns: ', this.columns);
         },
         error: (error) => {
           console.log(error);
@@ -91,9 +89,9 @@ export class ColumnComponent implements OnInit, OnDestroy {
       });
   }
 
-  // drop(event: CdkDragDrop<CreatedColumn[]>) {
-  //   moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-  // }
+  drop(event: CdkDragDrop<CreatedColumn[]>) {
+    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+  }
 
   openModal(id: string) {
     this.modalService.open(id);
