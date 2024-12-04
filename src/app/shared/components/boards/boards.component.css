@@ -1,0 +1,8 @@
+#loadingBoards {
+  min-height: calc(100vh - 236px);
+  width: 100%;
+  background-color: azure;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

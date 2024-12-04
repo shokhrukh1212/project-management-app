@@ -1,6 +1,11 @@
-<app-main-route
-  [boards]="boards"
-  [(ngModel)]="boardSwitcher"
-  *ngIf="boardSwitcher"
-></app-main-route>
-<app-board-route *ngIf="!boardSwitcher"></app-board-route>
+<app-boards-header></app-boards-header>
+<app-board [boards]="boards" *ngIf="!loadingBoards"></app-board>
+
+<!-- Loading template while loading all boards -->
+<div class="w-100" id="loadingBoards" *ngIf="loadingBoards">
+  <mat-spinner
+    color="primary"
+    diameter="100"
+    mode="indeterminate"
+  ></mat-spinner>
+</div>

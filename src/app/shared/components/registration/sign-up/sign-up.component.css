@@ -70,3 +70,7 @@ span {
   cursor: pointer;
   color: blue;
 }
+
+button:disabled {
+  opacity: 0.3;
+}

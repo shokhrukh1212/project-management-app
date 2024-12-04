@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { signUpUser, signedUser, loginUser } from '../user';
+import { signUpUser, signedUser, loginUser } from '../models/user.model';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegisterService {
-  baseURL: string = 'http://localhost:3000/';
+  baseURL: string = 'https://khon-project-management.onrender.com/';
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<signedUser[]> {

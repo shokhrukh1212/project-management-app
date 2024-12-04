@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ElementRef } from '@angular/core';
 import { ModalService } from '../../services/modal.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { ModalService } from '../../services/modal.service';
   templateUrl: './modals.component.html',
   styleUrls: ['./modals.component.css'],
 })
-export class ModalsComponent implements OnInit {
+export class ModalsComponent implements OnInit, OnDestroy {
   @Input() id: string = '';
   private element: any;
 
@@ -42,12 +42,15 @@ export class ModalsComponent implements OnInit {
   open(): void {
     this.element.style.display = 'block';
     document.body.classList.add('custom-modal-open');
-    console.log('clicked');
   }
 
   // close modal
   close(): void {
     this.element.style.display = 'none';
     document.body.classList.remove('custom-modal-open');
+  }
+
+  ngOnDestroy(): void {
+    this.modalService.remove(this);
   }
 }

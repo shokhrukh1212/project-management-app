@@ -1,0 +1,80 @@
+<div
+  cdkDropList
+  [cdkDropListData]="tasks"
+  class="example-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  <div class="item-box" *ngFor="let task of tasks" cdkDrag>
+    <div class="board-task-content">
+      <div class="board-task-info">
+        <h5>{{ task.title }}</h5>
+        <p>{{ task.description }}</p>
+      </div>
+      <div class="board-task-delete">
+        <i
+          class="bi bi-trash3"
+          (click)="openModalToDeleteTask('task-delete', task._id)"
+          title="delete a task"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="board-add">
+  <i class="bi bi-plus-circle" (click)="openModalToCreateTask('add-task')"></i>
+</div>
+
+<app-modals id="add-task">
+  <div class="add-task">
+    <h3>Create a task:</h3>
+    <br />
+    <div class="add-task-body">
+      <div class="add-task-input add-task-title">
+        <span for="name"><span>*</span>Title</span>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="title"
+          [(ngModel)]="taskTitle"
+          required
+        />
+      </div>
+      <br />
+      <br />
+      <div class="add-task-input add-task-description">
+        <span for="description"><span>*</span>Description</span>
+        <input
+          type="text"
+          name="description"
+          id="description"
+          placeholder="description"
+          [(ngModel)]="taskdescription"
+          required
+        />
+      </div>
+    </div>
+    <br />
+    <div class="container d-flex align-items-center justify-content-md-end p-0">
+      <button
+        class="btn btn-primary"
+        [disabled]="!taskTitle || !taskdescription"
+        (click)="onCreateTask()"
+      >
+        Save
+      </button>
+      <button class="btn btn-danger ms-2" (click)="closeModal('add-task')">
+        Close
+      </button>
+    </div>
+  </div>
+</app-modals>
+
+<app-modals id="task-delete">
+  <h3>Are you sure?</h3>
+  <p>Are you sure you want to delete this task?</p>
+  <button class="btn btn-danger" (click)="closeModal('task-delete')">
+    Cancel
+  </button>
+  <button class="btn btn-primary" (click)="onDeleteTask()">Ok</button>
+</app-modals>

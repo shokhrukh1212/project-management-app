@@ -1,0 +1,28 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css");
+button {
+  border: none;
+  margin: 0 10px;
+}
+button i {
+  padding-right: 10px;
+}
+
+.selectLanguage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.selectLanguage button {
+  padding: 10px 0;
+  font-weight: bold;
+  width: 130px;
+}
+.selectLanguage button:focus {
+  background-color: blue;
+}
+.selectLanguage button#btnLeft {
+  margin-right: 5px;
+}
+.selectLanguage button#btnRight {
+  margin-left: 5px;
+}

@@ -2,7 +2,11 @@
   "HOME": {
     "TITLE": "Project Management",
     "WELCOME1": "Welcome to",
-    "WELCOME2": "Project Management Application"
+    "WELCOME2": "Project Management Application",
+    "WELCOMEABOUT": "Project management system",
+    "WELCOMEABOUT2": "is an application that helps an individual in a team or",
+    "WELCOMEGROUP": "group of developers achieve their goals.",
+    "DEVELOPER": "Developer"
   },
   "BUTTON": {
     "LAN": {
@@ -20,6 +24,7 @@
       "TITLE": "Login",
       "PASSWORD": "Password",
       "BUTTON": "Login",
+      "LOADING": "Loading...",
       "ACCOUNT": "No account yet",
       "CREATE": "Create new account",
       "ERROR": "Error: Login or password is incorrect"

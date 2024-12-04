@@ -1,0 +1,43 @@
+<div class="container">
+  <nav
+    class="navbar navbar-light navbar-expand-md justify-content-center bg-light fixed-top"
+  >
+    <a href="/" class="navbar-brand d-flex w-50 mr-auto">{{
+      "HOME.TITLE" | translate
+    }}</a>
+    <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+      <div class="selectLanguage">
+        <button
+          class="btn btn-secondary"
+          id="btnLeft"
+          (click)="translate.use('en')"
+        >
+          <span class="flag-icon flag-icon-us me-1"></span>
+          {{ "BUTTON.LAN.EN" | translate }}
+        </button>
+        <button
+          class="btn btn-secondary"
+          id="btnRight"
+          (click)="translate.use('ru')"
+        >
+          <span class="flag-icon flag-icon-ru me-1"></span>
+          {{ "BUTTON.LAN.RU" | translate }}
+        </button>
+      </div>
+      <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+        <li class="nav-item">
+          <button class="btn btn-primary" (click)="onLogin()">
+            <i class="bi bi-person"></i
+            >{{ "BUTTON.REGISTER.LOGIN" | translate }}
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-primary" (click)="onSignUp()">
+            <i class="bi bi-box-arrow-in-right"></i
+            >{{ "BUTTON.REGISTER.SIGNUP" | translate }}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

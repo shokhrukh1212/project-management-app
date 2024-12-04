@@ -1,0 +1,90 @@
+<app-boards-header></app-boards-header>
+<div class="parent" *ngIf="!loadingColumns">
+  <div class="row m-auto">
+    <h1>Board name: {{ title }}</h1>
+  </div>
+
+  <div class="container">
+    <div
+      class="row mt-2"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+      cdkDropListGroup
+    >
+      <!-- Each column -->
+      <div *ngFor="let column of columns" class="board ms-2" cdkDrag>
+        <!-- <div> -->
+        <div class="col-header">
+          <h3 title="edit a column">{{ column.title }}</h3>
+          <i
+            class="bi bi-trash3"
+            (click)="openModalToDeleteColumn('column-delete', column._id)"
+            title="delete a column"
+          ></i>
+        </div>
+        <!-- Each task -->
+        <div class="task">
+          <app-task [columnId]="column._id"></app-task>
+        </div>
+      </div>
+      <div class="col">
+        <i
+          class="bi bi-plus-square-dotted"
+          title="add a new column"
+          (click)="openModal('add-column')"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modals id="column-delete">
+  <h3>Are you sure?</h3>
+  <p>Are you sure you want to delete this column?</p>
+  <button class="btn btn-danger" (click)="closeModal('column-delete')">
+    Cancel
+  </button>
+  <button class="btn btn-primary" type="submit" (click)="onDeleteColumn()">
+    <span *ngIf="!onDeletationTask">Ok</span>
+    <span *ngIf="onDeletationTask">Deleting...</span>
+  </button>
+</app-modals>
+
+<app-modals id="add-column">
+  <h2>Create a column:</h2>
+  <br />
+  <label for="name"><span>*</span>Title: </label>
+  <input
+    type="text"
+    name="title"
+    id="title"
+    placeholder="title"
+    [(ngModel)]="columnTitle"
+    required
+    maxlength="18"
+  />
+  <br />
+  <div class="container d-flex align-items-center justify-content-md-end mt-4">
+    <button
+      class="btn btn-primary"
+      [disabled]="!columnTitle"
+      (click)="onCreateColumn()"
+    >
+      <span *ngIf="!onCreationColumn">Submit</span>
+      <span *ngIf="onCreationColumn">Creating...</span>
+    </button>
+    <button class="btn btn-danger ms-2" (click)="closeModal('add-column')">
+      Close
+    </button>
+  </div>
+</app-modals>
+
+<!-- Loading template while loading all columns -->
+<div class="w-100" id="loadingColumns" *ngIf="loadingColumns">
+  <mat-spinner
+    color="primary"
+    diameter="100"
+    mode="indeterminate"
+  ></mat-spinner>
+</div>
